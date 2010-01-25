@@ -20,16 +20,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>axon</artifactId>
-        <groupId>org.axonframework</groupId>
+        <artifactId>axon-samples</artifactId>
+        <groupId>org.axonframework.samples</groupId>
         <version>0.4-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.axonframework.sample</groupId>
-    <artifactId>axon-sample</artifactId>
+    <groupId>org.axonframework.samples</groupId>
+    <artifactId>axon-addressbook</artifactId>
     <packaging>pom</packaging>
 
-    <name>Axon Sample Project</name>
+    <name>Axon Address Book Sample Project</name>
     <modules>
         <module>app</module>
     </modules>

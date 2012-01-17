@@ -25,7 +25,7 @@
 
     <context:annotation-config/>
 
-    <axon:annotation-config command-bus="commandBus"/>
+    <axon:annotation-config command-bus="commandBus" executor="taskExecutor"/>
 
     <!--
      <bean

@@ -17,6 +17,7 @@
 package org.axonframework.sample.app.init;
 
 import org.axonframework.commandhandling.CommandBus;
+import org.axonframework.commandhandling.GenericCommandMessage;
 import org.axonframework.sample.app.api.AddressType;
 import org.axonframework.sample.app.api.CreateContactCommand;
 import org.axonframework.sample.app.api.RegisterAddressCommand;
@@ -53,13 +54,13 @@ public class ContactGenerator implements ApplicationListener {
             commandAllard.setNewContactName("Allard");
             String uuidAllard = UUID.randomUUID().toString();
             commandAllard.setContactId(uuidAllard);
-            commandBus.dispatch(commandAllard);
+            commandBus.dispatch(new GenericCommandMessage<Object>(commandAllard));
 
             CreateContactCommand commandJettro = new CreateContactCommand();
             commandJettro.setNewContactName("Jettro");
             String uuidJettro = UUID.randomUUID().toString();
             commandJettro.setContactId(uuidJettro);
-            commandBus.dispatch(commandJettro);
+            commandBus.dispatch(new GenericCommandMessage<Object>(commandJettro));
 
             RegisterAddressCommand registerPrivateAddressCommand = new RegisterAddressCommand();
             registerPrivateAddressCommand.setAddressType(AddressType.PRIVATE);
@@ -67,7 +68,7 @@ public class ContactGenerator implements ApplicationListener {
             registerPrivateAddressCommand.setContactId(uuidAllard);
             registerPrivateAddressCommand.setStreetAndNumber("AxonBoulevard 1");
             registerPrivateAddressCommand.setZipCode("1234AB");
-            commandBus.dispatch(registerPrivateAddressCommand);
+            commandBus.dispatch(new GenericCommandMessage<Object>(registerPrivateAddressCommand));
 
             RegisterAddressCommand registerWorkAddressCommand = new RegisterAddressCommand();
             registerWorkAddressCommand.setAddressType(AddressType.WORK);
@@ -75,7 +76,7 @@ public class ContactGenerator implements ApplicationListener {
             registerWorkAddressCommand.setContactId(uuidAllard);
             registerWorkAddressCommand.setStreetAndNumber("JTeam avenue");
             registerWorkAddressCommand.setZipCode("1234AB");
-            commandBus.dispatch(registerWorkAddressCommand);
+            commandBus.dispatch(new GenericCommandMessage<Object>(registerWorkAddressCommand));
 
             RegisterAddressCommand registerJettroAddressCommand = new RegisterAddressCommand();
             registerJettroAddressCommand.setAddressType(AddressType.PRIVATE);
@@ -83,7 +84,7 @@ public class ContactGenerator implements ApplicationListener {
             registerJettroAddressCommand.setContactId(uuidJettro);
             registerJettroAddressCommand.setStreetAndNumber("Feyenoordlaan 010");
             registerJettroAddressCommand.setZipCode("3000AA");
-            commandBus.dispatch(registerJettroAddressCommand);
+            commandBus.dispatch(new GenericCommandMessage<Object>(registerJettroAddressCommand));
         }
     }
 }

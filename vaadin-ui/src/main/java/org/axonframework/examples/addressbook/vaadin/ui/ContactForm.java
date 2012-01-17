@@ -21,6 +21,7 @@ import com.vaadin.data.util.BeanItem;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.*;
 import org.axonframework.commandhandling.CommandBus;
+import org.axonframework.commandhandling.GenericCommandMessage;
 import org.axonframework.examples.addressbook.vaadin.data.ContactFormBean;
 import org.axonframework.sample.app.api.AbstractOrderCommand;
 import org.axonframework.sample.app.api.ChangeContactNameCommand;
@@ -105,7 +106,7 @@ public class ContactForm extends Form implements Button.ClickListener {
         ContactFormBean contact = obtainContactFormBeanFromDatasource();
         RemoveContactCommand command = new RemoveContactCommand();
         command.setContactId(contact.getIdentifier());
-        commandBus.dispatch(command);
+        commandBus.dispatch(new GenericCommandMessage<Object>(command));
         String message = "Removed the contact with name " + contact.getName();
         fireEvent(new FormIsSuccessfullyCommittedEvent(this));
         getApplication().getMainWindow().showNotification(message, Window.Notification.TYPE_TRAY_NOTIFICATION);
@@ -143,7 +144,7 @@ public class ContactForm extends Form implements Button.ClickListener {
             command = changeCommand;
             message = "Changed name of contact into " + contact.getName();
         }
-        commandBus.dispatch(command);
+        commandBus.dispatch(new GenericCommandMessage<Object>(command));
         fireEvent(new FormIsSuccessfullyCommittedEvent(this));
         setReadOnly(true);
         getApplication().getMainWindow().showNotification(message, Window.Notification.TYPE_TRAY_NOTIFICATION);

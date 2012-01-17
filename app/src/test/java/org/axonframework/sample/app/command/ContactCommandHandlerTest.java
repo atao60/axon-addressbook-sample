@@ -1,6 +1,5 @@
 package org.axonframework.sample.app.command;
 
-import org.axonframework.domain.AggregateIdentifier;
 import org.axonframework.repository.Repository;
 import org.axonframework.sample.app.api.ChangeContactNameCommand;
 import org.axonframework.sample.app.api.ContactNameAlreadyTakenException;
@@ -115,7 +114,7 @@ public class ContactCommandHandlerTest {
 
         when(mockContactNameRepository.claimContactName("Good New Name"))
                 .thenReturn(true);
-        when(mockRepository.load(isA(AggregateIdentifier.class)))
+        when(mockRepository.load(isA(String.class)))
                 .thenReturn(mockContact);
         when(mockContactRepository.loadContactDetails(command.getContactId()))
                 .thenReturn(mockContactEntry);
@@ -143,7 +142,7 @@ public class ContactCommandHandlerTest {
         command.setContactNewName("Good New Name");
 
         when(mockContactNameRepository.claimContactName("Good New Name")).thenReturn(true);
-        when(mockRepository.load(isA(AggregateIdentifier.class))).thenReturn(mockContact);
+        when(mockRepository.load(isA(String.class))).thenReturn(mockContact);
 
         contactCommandHandler.handle(command, mockUnitOfWork);
 

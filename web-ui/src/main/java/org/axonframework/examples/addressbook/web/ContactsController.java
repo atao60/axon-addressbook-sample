@@ -17,7 +17,13 @@
 package org.axonframework.examples.addressbook.web;
 
 import org.axonframework.commandhandling.CommandBus;
-import org.axonframework.sample.app.api.*;
+import org.axonframework.commandhandling.GenericCommandMessage;
+import org.axonframework.sample.app.api.AddressType;
+import org.axonframework.sample.app.api.ChangeContactNameCommand;
+import org.axonframework.sample.app.api.CreateContactCommand;
+import org.axonframework.sample.app.api.RegisterAddressCommand;
+import org.axonframework.sample.app.api.RemoveAddressCommand;
+import org.axonframework.sample.app.api.RemoveContactCommand;
 import org.axonframework.sample.app.command.ContactNameRepository;
 import org.axonframework.sample.app.query.AddressEntry;
 import org.axonframework.sample.app.query.ContactEntry;
@@ -35,8 +41,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.validation.Valid;
 import java.util.List;
+import javax.validation.Valid;
 
 /**
  * @author Jettro Coenradie
@@ -94,7 +100,7 @@ public class ContactsController {
         command.setContactNewName(contact.getName());
         command.setContactId(contact.getIdentifier());
 
-        commandBus.dispatch(command);
+        commandBus.dispatch(new GenericCommandMessage<Object>(command));
 
         return "contacts/edit";
 
@@ -124,7 +130,7 @@ public class ContactsController {
         CreateContactCommand command = new CreateContactCommand();
         command.setNewContactName(contact.getName());
 
-        commandBus.dispatch(command);
+        commandBus.dispatch(new GenericCommandMessage<Object>(command));
 
         return "redirect:/contacts";
     }
@@ -141,7 +147,7 @@ public class ContactsController {
         if (!bindingResult.hasErrors()) {
             RemoveContactCommand command = new RemoveContactCommand();
             command.setContactId(contact.getIdentifier());
-            commandBus.dispatch(command);
+            commandBus.dispatch(new GenericCommandMessage<Object>(command));
 
             return "redirect:/contacts";
         }
@@ -168,7 +174,7 @@ public class ContactsController {
             command.setContactId(address.getIdentifier());
             command.setStreetAndNumber(address.getStreetAndNumber());
             command.setZipCode(address.getZipCode());
-            commandBus.dispatch(command);
+            commandBus.dispatch(new GenericCommandMessage<Object>(command));
 
             return "redirect:/contacts/" + address.getIdentifier();
         }
@@ -193,7 +199,7 @@ public class ContactsController {
             RemoveAddressCommand command = new RemoveAddressCommand();
             command.setContactId(address.getIdentifier());
             command.setAddressType(address.getAddressType());
-            commandBus.dispatch(command);
+            commandBus.dispatch(new GenericCommandMessage<Object>(command));
 
             return "redirect:/contacts/" + address.getIdentifier();
         }

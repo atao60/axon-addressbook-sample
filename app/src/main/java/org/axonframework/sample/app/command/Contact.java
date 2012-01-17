@@ -16,8 +16,8 @@
 
 package org.axonframework.sample.app.command;
 
-import org.axonframework.domain.AggregateIdentifier;
 import org.axonframework.eventhandling.annotation.EventHandler;
+import org.axonframework.eventsourcing.AggregateInitializer;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
 import org.axonframework.sample.app.api.Address;
 import org.axonframework.sample.app.api.AddressAddedEvent;
@@ -41,14 +41,16 @@ import java.util.Map;
 class Contact extends AbstractAnnotatedAggregateRoot {
 
     private Map<AddressType, Address> addresses = new HashMap<AddressType, Address>();
+    private final String id;
 
-    public Contact(AggregateIdentifier identifier, String name) {
-        super(identifier);
-        apply(new ContactCreatedEvent(identifier.asString(), name));
+    public Contact(String identifier, String name) {
+        id = identifier;
+        apply(new ContactCreatedEvent(identifier, name));
     }
 
-    public Contact(AggregateIdentifier identifier) {
-        super(identifier);
+    @AggregateInitializer
+    public Contact(String identifier) {
+        id = identifier;
     }
 
     /**
@@ -60,9 +62,9 @@ class Contact extends AbstractAnnotatedAggregateRoot {
      */
     public void registerAddress(AddressType type, Address address) {
         if (addresses.containsKey(type)) {
-            apply(new AddressChangedEvent(id(), type, address));
+            apply(new AddressChangedEvent(id, type, address));
         } else {
-            apply(new AddressAddedEvent(id(), type, address));
+            apply(new AddressAddedEvent(id, type, address));
         }
     }
 
@@ -73,7 +75,7 @@ class Contact extends AbstractAnnotatedAggregateRoot {
      */
     public void removeAddress(AddressType type) {
         if (addresses.containsKey(type)) {
-            apply(new AddressRemovedEvent(id(), type));
+            apply(new AddressRemovedEvent(id, type));
         }
     }
 
@@ -83,11 +85,11 @@ class Contact extends AbstractAnnotatedAggregateRoot {
      * @param name String containing the new name
      */
     public void changeName(String name) {
-        apply(new ContactNameChangedEvent(id(), name));
+        apply(new ContactNameChangedEvent(id, name));
     }
 
     public void delete() {
-        apply(new ContactDeletedEvent(id()));
+        apply(new ContactDeletedEvent(id));
     }
 
     @EventHandler
@@ -106,5 +108,9 @@ class Contact extends AbstractAnnotatedAggregateRoot {
     @EventHandler
     protected void handleAddressRemovedEvent(AddressRemovedEvent event) {
         addresses.remove(event.getType());
+    }
+
+    public Object getIdentifier() {
+        return id;
     }
 }

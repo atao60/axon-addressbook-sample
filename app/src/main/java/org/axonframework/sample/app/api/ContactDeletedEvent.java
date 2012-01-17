@@ -16,10 +16,12 @@
 
 package org.axonframework.sample.app.api;
 
+import java.io.Serializable;
+
 /**
  * @author Allard Buijze
  */
-public class ContactDeletedEvent {
+public class ContactDeletedEvent implements Serializable {
 
     private final String contactId;
 

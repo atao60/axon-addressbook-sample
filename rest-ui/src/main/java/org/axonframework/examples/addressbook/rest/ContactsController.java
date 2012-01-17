@@ -17,7 +17,12 @@ package org.axonframework.examples.addressbook.rest;
  */
 
 import org.axonframework.commandhandling.CommandBus;
-import org.axonframework.sample.app.api.*;
+import org.axonframework.commandhandling.GenericCommandMessage;
+import org.axonframework.sample.app.api.ChangeContactNameCommand;
+import org.axonframework.sample.app.api.CreateContactCommand;
+import org.axonframework.sample.app.api.RegisterAddressCommand;
+import org.axonframework.sample.app.api.RemoveAddressCommand;
+import org.axonframework.sample.app.api.RemoveContactCommand;
 import org.axonframework.sample.app.command.ContactNameRepository;
 import org.axonframework.sample.app.query.AddressEntry;
 import org.axonframework.sample.app.query.ContactEntry;
@@ -28,12 +33,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.validation.Valid;
 
 
 /**
@@ -117,7 +126,7 @@ public class ContactsController {
         CreateContactCommand command = new CreateContactCommand();
         command.setNewContactName(contact.getName());
 
-        commandBus.dispatch(command);
+        commandBus.dispatch(new GenericCommandMessage<Object>(command));
     }
 
     /**
@@ -135,7 +144,7 @@ public class ContactsController {
         command.setContactNewName(contact.getName());
         command.setContactId(contact.getIdentifier());
 
-        commandBus.dispatch(command);
+        commandBus.dispatch(new GenericCommandMessage<Object>(command));
     }
 
     /**
@@ -152,7 +161,7 @@ public class ContactsController {
         }
         RemoveContactCommand command = new RemoveContactCommand();
         command.setContactId(contact.getIdentifier());
-        commandBus.dispatch(command);
+        commandBus.dispatch(new GenericCommandMessage<Object>(command));
     }
 
     /**
@@ -169,7 +178,7 @@ public class ContactsController {
         command.setContactId(address.getIdentifier());
         command.setStreetAndNumber(address.getStreetAndNumber());
         command.setZipCode(address.getZipCode());
-        commandBus.dispatch(command);
+        commandBus.dispatch(new GenericCommandMessage<Object>(command));
     }
 
     /**
@@ -190,7 +199,7 @@ public class ContactsController {
         RemoveAddressCommand command = new RemoveAddressCommand();
         command.setContactId(address.getIdentifier());
         command.setAddressType(address.getAddressType());
-        commandBus.dispatch(command);
+        commandBus.dispatch(new GenericCommandMessage<Object>(command));
 
     }
 

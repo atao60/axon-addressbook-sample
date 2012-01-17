@@ -17,9 +17,14 @@
 package org.axonframework.sample.app.command;
 
 import org.axonframework.commandhandling.annotation.CommandHandler;
-import org.axonframework.domain.StringAggregateIdentifier;
 import org.axonframework.repository.Repository;
-import org.axonframework.sample.app.api.*;
+import org.axonframework.sample.app.api.Address;
+import org.axonframework.sample.app.api.ChangeContactNameCommand;
+import org.axonframework.sample.app.api.ContactNameAlreadyTakenException;
+import org.axonframework.sample.app.api.CreateContactCommand;
+import org.axonframework.sample.app.api.RegisterAddressCommand;
+import org.axonframework.sample.app.api.RemoveAddressCommand;
+import org.axonframework.sample.app.api.RemoveContactCommand;
 import org.axonframework.sample.app.query.ContactEntry;
 import org.axonframework.sample.app.query.ContactRepository;
 import org.axonframework.unitofwork.UnitOfWork;
@@ -95,7 +100,7 @@ public class ContactCommandHandler {
             if (contactId == null) {
                 contactId = UUID.randomUUID().toString();
             }
-            Contact contact = new Contact(new StringAggregateIdentifier(contactId), command.getNewContactName());
+            Contact contact = new Contact(contactId, command.getNewContactName());
             repository.add(contact);
         } else {
             throw new ContactNameAlreadyTakenException(command.getNewContactName());
@@ -116,7 +121,7 @@ public class ContactCommandHandler {
         Assert.notNull(command.getContactNewName(), "Name may not be null");
         if (contactNameRepository.claimContactName(command.getContactNewName())) {
             registerUnitOfWorkListenerToCancelClaimingName(command.getContactNewName(), unitOfWork);
-            Contact contact = repository.load(new StringAggregateIdentifier(command.getContactId()));
+            Contact contact = repository.load(command.getContactId());
             contact.changeName(command.getContactNewName());
 
             cancelClaimedContactName(command.getContactId(), unitOfWork);
@@ -134,7 +139,7 @@ public class ContactCommandHandler {
     @CommandHandler
     public void handle(RemoveContactCommand command, UnitOfWork unitOfWork) {
         Assert.notNull(command.getContactId(), "ContactIdentifier may not be null");
-        Contact contact = repository.load(new StringAggregateIdentifier(command.getContactId()));
+        Contact contact = repository.load(command.getContactId());
         contact.delete();
 
         cancelClaimedContactName(command.getContactId(), unitOfWork);
@@ -152,7 +157,7 @@ public class ContactCommandHandler {
         Assert.notNull(command.getContactId(), "ContactIdentifier may not be null");
         Assert.notNull(command.getAddressType(), "AddressType may not be null");
         Address address = new Address(command.getStreetAndNumber(), command.getZipCode(), command.getCity());
-        Contact contact = repository.load(new StringAggregateIdentifier(command.getContactId()));
+        Contact contact = repository.load(command.getContactId());
         contact.registerAddress(command.getAddressType(), address);
     }
 
@@ -167,7 +172,7 @@ public class ContactCommandHandler {
     public void handle(RemoveAddressCommand command) {
         Assert.notNull(command.getContactId(), "ContactIdentifier may not be null");
         Assert.notNull(command.getAddressType(), "AddressType may not be null");
-        Contact contact = repository.load(new StringAggregateIdentifier(command.getContactId()));
+        Contact contact = repository.load(command.getContactId());
         contact.removeAddress(command.getAddressType());
     }
 

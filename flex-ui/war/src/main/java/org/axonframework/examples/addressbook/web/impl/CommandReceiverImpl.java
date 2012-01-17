@@ -17,6 +17,7 @@
 package org.axonframework.examples.addressbook.web.impl;
 
 import org.axonframework.commandhandling.CommandBus;
+import org.axonframework.commandhandling.GenericCommandMessage;
 import org.axonframework.commandhandling.callbacks.FutureCallback;
 import org.axonframework.examples.addressbook.web.CommandReceiver;
 import org.slf4j.Logger;
@@ -48,7 +49,7 @@ public class CommandReceiverImpl implements CommandReceiver {
     public Object sendCommand(Object command) {
         logger.debug("Received a command of type : {}", command.getClass().getSimpleName());
         FutureCallback callback = new FutureCallback();
-        commandBus.dispatch(command, callback);
+        commandBus.dispatch(new GenericCommandMessage<Object>(command), callback);
         try {
             return callback.get();
         } catch (Exception e) {

@@ -16,10 +16,12 @@
 
 package org.axonframework.sample.app.api;
 
+import java.io.Serializable;
+
 /**
  * @author Allard Buijze
  */
-public abstract class AddressRegisteredEvent {
+public abstract class AddressRegisteredEvent implements Serializable {
 
     private final String contactId;
     private final AddressType type;

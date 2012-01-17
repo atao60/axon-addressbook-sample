@@ -16,10 +16,12 @@
 
 package org.axonframework.sample.app.api;
 
+import java.io.Serializable;
+
 /**
  * @author Allard Buijze
  */
-public class AddressRemovedEvent {
+public class AddressRemovedEvent implements Serializable {
 
     private final String contactId;
     private final AddressType type;

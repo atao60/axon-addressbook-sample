@@ -1,0 +1,7 @@
+Welcome to the main page of the Axon Address Book Sample.
+
+With this sample we want to show the basic features of the Axon framework. We show these features using multiple different client side applications.
+
+We have a flex client, a spring mvc client, a REST client and the start of a Vaadin client. The REST client is used in a node.js sample that can be found in another repository.
+
+https://github.com/jettro/axon-addressbook-nodejs

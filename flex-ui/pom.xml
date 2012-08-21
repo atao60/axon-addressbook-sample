@@ -48,7 +48,7 @@
         </repository>
         <repository>
             <id>spicefactory</id>
-            <url>http://axonframework.googlecode.com/svn/repo</url>
+            <url>http://opensource.adobe.com/svn/opensource/cairngorm3/maven-repository</url>
         </repository>
     </repositories>
     <pluginRepositories>

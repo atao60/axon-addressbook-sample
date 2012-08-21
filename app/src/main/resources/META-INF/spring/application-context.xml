@@ -68,11 +68,11 @@
     </bean>
     -->
     <axon:command-bus id="commandBus">
-        <axon:interceptors>
+        <axon:handlerInterceptors>
             <bean class="org.axonframework.commandhandling.interceptors.SpringTransactionalInterceptor">
                 <property name="transactionManager" ref="transactionManager"/>
             </bean>
-        </axon:interceptors>
+        </axon:handlerInterceptors>
     </axon:command-bus>
 
     <!--	<bean id="eventBus" class="org.axonframework.eventhandling.SimpleEventBus" />-->

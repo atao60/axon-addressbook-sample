@@ -17,7 +17,6 @@
 package org.axonframework.sample.app.command;
 
 import org.axonframework.eventhandling.annotation.EventHandler;
-import org.axonframework.eventsourcing.AggregateInitializer;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
 import org.axonframework.sample.app.api.Address;
 import org.axonframework.sample.app.api.AddressAddedEvent;
@@ -41,16 +40,14 @@ import java.util.Map;
 class Contact extends AbstractAnnotatedAggregateRoot {
 
     private Map<AddressType, Address> addresses = new HashMap<AddressType, Address>();
-    private final String id;
+    private String id;
 
     public Contact(String identifier, String name) {
-        id = identifier;
         apply(new ContactCreatedEvent(identifier, name));
     }
 
-    @AggregateInitializer
-    public Contact(String identifier) {
-        id = identifier;
+    @SuppressWarnings("UnusedDeclaration")
+    Contact() {
     }
 
     /**
@@ -94,6 +91,7 @@ class Contact extends AbstractAnnotatedAggregateRoot {
 
     @EventHandler
     protected void handleContactCreatedEvent(ContactCreatedEvent event) {
+        this.id = event.getContactId();
     }
 
     @EventHandler

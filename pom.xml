@@ -36,6 +36,7 @@
     <properties>
         <slf4j.version>1.6.1</slf4j.version>
         <spring.version>3.0.5.RELEASE</spring.version>
+        <axon.version>2.0-rc1</axon.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

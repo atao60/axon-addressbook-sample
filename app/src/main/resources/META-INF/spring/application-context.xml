@@ -25,18 +25,12 @@
 
     <context:annotation-config/>
 
-    <axon:annotation-config command-bus="commandBus" executor="taskExecutor"/>
+    <axon:annotation-config />
 
     <!--
-     <bean
-         class="org.axonframework.eventhandling.annotation.AnnotationEventListenerBeanPostProcessor">
-         <property name="executor" ref="taskExecutor" />
-     </bean>
+     <bean class="org.axonframework.eventhandling.annotation.AnnotationEventListenerBeanPostProcessor"/>
 
-     <bean
-         class="org.axonframework.commandhandling.annotation.AnnotationCommandHandlerBeanPostProcessor">
-         <property name="commandBus" ref="commandBus" />
-     </bean>
+     <bean class="org.axonframework.commandhandling.annotation.AnnotationCommandHandlerBeanPostProcessor"/>
      -->
 
     <!-- ================================================ -->
@@ -67,13 +61,7 @@
          <property name="transactionManager" ref="transactionManager"/> </bean> </property>
     </bean>
     -->
-    <axon:command-bus id="commandBus">
-        <axon:handlerInterceptors>
-            <bean class="org.axonframework.commandhandling.interceptors.SpringTransactionalInterceptor">
-                <property name="transactionManager" ref="transactionManager"/>
-            </bean>
-        </axon:handlerInterceptors>
-    </axon:command-bus>
+    <axon:command-bus id="commandBus" transaction-manager="transactionManager"/>
 
     <!--	<bean id="eventBus" class="org.axonframework.eventhandling.SimpleEventBus" />-->
     <axon:event-bus id="eventBus"/>

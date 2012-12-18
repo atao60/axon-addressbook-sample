@@ -16,8 +16,6 @@
 
 package org.axonframework.examples.addressbook.rest.listener;
 
-import org.axonframework.eventhandling.SequentialPolicy;
-import org.axonframework.eventhandling.annotation.AsynchronousEventListener;
 import org.axonframework.eventhandling.annotation.EventHandler;
 import org.axonframework.sample.app.api.AddressRegisteredEvent;
 import org.axonframework.sample.app.api.AddressRemovedEvent;
@@ -38,7 +36,6 @@ import java.util.Map;
  * @author Jettro Coenradie
  */
 @Component
-@AsynchronousEventListener(sequencingPolicyClass = SequentialPolicy.class)
 public class AddressListener {
 
     private final static Logger logger = LoggerFactory.getLogger(AddressListener.class);

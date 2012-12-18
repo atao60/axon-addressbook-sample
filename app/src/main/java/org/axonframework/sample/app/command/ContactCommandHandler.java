@@ -180,7 +180,7 @@ public class ContactCommandHandler {
         final ContactEntry contactEntry = contactRepository.loadContactDetails(contactIdentifier);
         unitOfWork.registerListener(new UnitOfWorkListenerAdapter() {
             @Override
-            public void afterCommit() {
+            public void afterCommit(UnitOfWork uow) {
                 logger.debug("About to cancel the name {}", contactEntry.getName());
                 contactNameRepository.cancelContactName(contactEntry.getName());
             }
@@ -190,7 +190,7 @@ public class ContactCommandHandler {
     private void registerUnitOfWorkListenerToCancelClaimingName(final String name, UnitOfWork unitOfWork) {
         unitOfWork.registerListener(new UnitOfWorkListenerAdapter() {
             @Override
-            public void onRollback(Throwable failureCause) {
+            public void onRollback(UnitOfWork uow, Throwable failureCause) {
                 contactNameRepository.cancelContactName(name);
             }
         });

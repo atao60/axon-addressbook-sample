@@ -78,7 +78,7 @@ public class ContactCommandHandlerTest {
         verify(mockContactNameRepository).claimContactName("Good name");
         verify(mockUnitOfWork).registerListener(unitOfWorkListenerArgumentCaptor.capture());
 
-        unitOfWorkListenerArgumentCaptor.getValue().onRollback(new RuntimeException("Something went horribly wrong"));
+        unitOfWorkListenerArgumentCaptor.getValue().onRollback(mockUnitOfWork, new RuntimeException("Something went horribly wrong"));
 
         verify(mockContactNameRepository).cancelContactName("Good name");
     }
@@ -129,7 +129,7 @@ public class ContactCommandHandlerTest {
         verify(mockContact).changeName("Good New Name");
         verify(mockUnitOfWork, times(2)).registerListener(unitOfWorkListenerArgumentCaptor.capture());
         for (UnitOfWorkListener listener : unitOfWorkListenerArgumentCaptor.getAllValues()) {
-            listener.afterCommit();
+            listener.afterCommit(mockUnitOfWork);
         }
 
         verify(mockContactNameRepository).cancelContactName("Good Old Name");
@@ -151,7 +151,7 @@ public class ContactCommandHandlerTest {
         verify(mockContactNameRepository).claimContactName("Good New Name");
         verify(mockUnitOfWork, times(2)).registerListener(unitOfWorkListenerArgumentCaptor.capture());
         for (UnitOfWorkListener listener : unitOfWorkListenerArgumentCaptor.getAllValues()) {
-            listener.onRollback(new RuntimeException("Something went horribly wrong"));
+            listener.onRollback(mockUnitOfWork, new RuntimeException("Something went horribly wrong"));
         }
 
         verify(mockContactNameRepository).cancelContactName("Good New Name");

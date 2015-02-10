@@ -48,7 +48,7 @@
         </repository>
         <repository>
             <id>spicefactory</id>
-            <url>http://opensource.adobe.com/svn/opensource/cairngorm3/maven-repository</url>
+            <url>http://svn.code.sf.net/adobe/cairngorm/code/cairngorm3/maven-repository/</url>
         </repository>
     </repositories>
     <pluginRepositories>

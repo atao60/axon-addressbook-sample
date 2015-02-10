@@ -39,7 +39,7 @@ public class ViewDatabaseController {
 
     @RequestMapping("/events")
     public String events(Model model) {
-        Query nativeQuery = entityManager.createQuery("select e.id,e.aggregateIdentifier,e.sequenceNumber,e.timeStamp,e.type,e.serializedEvent from DomainEventEntry e");
+        Query nativeQuery = entityManager.createQuery("select e.id,e.aggregateIdentifier,e.sequenceNumber,e.timeStamp,e.type,e.payload from DomainEventEntry e");
         @SuppressWarnings("unchecked")
         List<Object[]> events = nativeQuery.getResultList();
         for (Object[] event : events) {

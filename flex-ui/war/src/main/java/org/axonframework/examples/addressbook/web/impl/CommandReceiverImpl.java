@@ -48,7 +48,7 @@ public class CommandReceiverImpl implements CommandReceiver {
     @Override
     public Object sendCommand(Object command) {
         logger.debug("Received a command of type : {}", command.getClass().getSimpleName());
-        FutureCallback callback = new FutureCallback();
+        FutureCallback<Object> callback = new FutureCallback<>();
         commandBus.dispatch(new GenericCommandMessage<Object>(command), callback);
         try {
             return callback.get();

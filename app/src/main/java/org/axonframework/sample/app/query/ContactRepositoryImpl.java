@@ -60,7 +60,7 @@ public class ContactRepositoryImpl implements ContactRepository {
                 .getResultList();
     }
 
-    @SuppressWarnings({"unchecked"})
+//    @SuppressWarnings({"unchecked"})
     @Override
     public ContactEntry loadContactDetails(String contactIdentifier) {
         return (ContactEntry) entityManager.createQuery("SELECT e FROM ContactEntry e WHERE e.identifier = :id")

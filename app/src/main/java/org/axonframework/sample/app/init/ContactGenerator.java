@@ -33,7 +33,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Allard Buijze
  */
-public class ContactGenerator implements ApplicationListener {
+public class ContactGenerator implements ApplicationListener<ApplicationEvent> {
 
     private CommandBus commandBus;
     private AtomicBoolean initialized = new AtomicBoolean();

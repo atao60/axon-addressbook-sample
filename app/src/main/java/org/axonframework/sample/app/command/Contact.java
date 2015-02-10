@@ -37,7 +37,7 @@ import java.util.Map;
  *
  * @author Allard Buijze
  */
-class Contact extends AbstractAnnotatedAggregateRoot {
+class Contact extends AbstractAnnotatedAggregateRoot<String> {
 
     /**
      * 
@@ -50,7 +50,7 @@ class Contact extends AbstractAnnotatedAggregateRoot {
         apply(new ContactCreatedEvent(identifier, name));
     }
 
-    @SuppressWarnings("UnusedDeclaration")
+//    @SuppressWarnings("UnusedDeclaration")
     Contact() {
     }
 
@@ -112,7 +112,7 @@ class Contact extends AbstractAnnotatedAggregateRoot {
         addresses.remove(event.getType());
     }
 
-    public Object getIdentifier() {
+    public String getIdentifier() {
         return id;
     }
 }

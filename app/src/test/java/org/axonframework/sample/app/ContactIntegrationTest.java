@@ -50,7 +50,7 @@ public class ContactIntegrationTest {
     private ContactRepository contactRepository;
 
     @Autowired
-    private Repository commandRepository;
+    private Repository<?> commandRepository;
 
     @Test(timeout = 10000)
     public void testApplicationContext() throws InterruptedException {

@@ -20,6 +20,7 @@ import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.*;
+
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.GenericCommandMessage;
 import org.axonframework.examples.addressbook.vaadin.data.ContactFormBean;
@@ -156,7 +157,9 @@ public class ContactForm extends Form implements Button.ClickListener {
 
     private ContactFormBean obtainContactFormBeanFromDatasource() {
         //noinspection unchecked
-        return ((BeanItem<ContactFormBean>) getItemDataSource()).getBean();
+        @SuppressWarnings("unchecked")
+        BeanItem<ContactFormBean> item = (BeanItem<ContactFormBean>) getItemDataSource();
+        return item.getBean();
     }
 
 

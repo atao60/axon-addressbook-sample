@@ -27,8 +27,8 @@ import org.axonframework.sample.app.command.ContactNameRepository;
 import org.axonframework.sample.app.query.AddressEntry;
 import org.axonframework.sample.app.query.ContactEntry;
 import org.axonframework.sample.app.query.ContactRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -65,7 +65,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping(value = "/contacts")
 public class ContactsController {
-    private final static Logger logger = LoggerFactory.getLogger(ContactsController.class);
+//    private final static Logger logger = LoggerFactory.getLogger(ContactsController.class);
 
     @Autowired
     private ContactRepository repository;

@@ -34,6 +34,10 @@
 	</modules>
 
 	<properties>
+	
+        <jetty.port>8087</jetty.port>
+
+
 		<projectEncoding>UTF-8</projectEncoding>
 		<project.build.sourceEncoding>${projectEncoding}</project.build.sourceEncoding>
 		<project.reporting.sourceEncoding>${projectEncoding}</project.reporting.sourceEncoding>
@@ -48,9 +52,9 @@
 		<maven.compiler.debug>true</maven.compiler.debug>
 
         <compiler.maven.version>3.2</compiler.maven.version>
-		<jetty.maven.groupId>org.mortbay.jetty</jetty.maven.groupId>
-		<jetty.maven.artifactId>maven-jetty-plugin</jetty.maven.artifactId>
-		<jetty.maven.version>6.1.22</jetty.maven.version>
+		<jetty.maven.groupId><!--org.mortbay.jetty-->org.eclipse.jetty</jetty.maven.groupId>
+		<jetty.maven.artifactId><!--maven-jetty-plugin-->jetty-maven-plugin</jetty.maven.artifactId>
+		<jetty.maven.version><!--6.1.22-->9.2.7.v20150116</jetty.maven.version>
 
 		<slf4j.version>1.6.1</slf4j.version>
 		<spring.version>3.0.5.RELEASE</spring.version>

@@ -29,6 +29,10 @@
 
     <name>Axon Address Book Sample - Vaadin ui</name>
 
+    <properties>
+        <vaadi.jetty.port>${jetty.port}</vaadi.jetty.port>
+    </properties>
+
     <dependencies>
         <!-- Internal dependencies -->
         <dependency>
@@ -73,6 +77,10 @@
                 <groupId>${jetty.maven.groupId}</groupId>
                 <artifactId>${jetty.maven.artifactId}</artifactId>
                 <configuration>
+                    <httpConnector>
+                        <port>${vaadi.jetty.port}</port>
+                    </httpConnector>
+                
                     <stopPort>9966</stopPort>
                     <stopKey>project-name</stopKey>
                     <!-- Redeploy every x seconds if changes are detected, 0 for no automatic redeployment -->

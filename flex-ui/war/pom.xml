@@ -30,6 +30,10 @@
 
     <name>Axon Address Book Sample - Flex ui war</name>
 
+    <properties>
+        <flex.jetty.port>${jetty.port}</flex.jetty.port>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -47,6 +51,11 @@
             <plugin>
                 <groupId>${jetty.maven.groupId}</groupId>
                 <artifactId>${jetty.maven.artifactId}</artifactId>
+                 <configuration>
+                    <httpConnector>
+                        <port>${flex.jetty.port}</port>
+                    </httpConnector>
+                 </configuration>
             </plugin>
         </plugins>
     </build>

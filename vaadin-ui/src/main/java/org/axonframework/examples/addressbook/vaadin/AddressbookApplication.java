@@ -16,19 +16,31 @@
 
 package org.axonframework.examples.addressbook.vaadin;
 
+import org.axonframework.commandhandling.CommandBus;
+import org.axonframework.examples.addressbook.vaadin.data.ContactContainer;
+import org.axonframework.examples.addressbook.vaadin.data.ContactFormBean;
+import org.axonframework.examples.addressbook.vaadin.ui.ContactForm;
+import org.axonframework.examples.addressbook.vaadin.ui.ContactList;
+import org.axonframework.examples.addressbook.vaadin.ui.HelpWindow;
+import org.axonframework.examples.addressbook.vaadin.ui.ListView;
+import org.axonframework.examples.addressbook.vaadin.ui.NavigationTree;
+import org.axonframework.examples.addressbook.vaadin.ui.SearchView;
+import org.axonframework.examples.addressbook.vaadin.ui.Theme;
+import org.axonframework.sample.app.query.ContactEntry;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vaadin.Application;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.terminal.ThemeResource;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.HorizontalSplitPanel;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.Runo;
-import org.axonframework.commandhandling.CommandBus;
-import org.axonframework.examples.addressbook.vaadin.data.ContactContainer;
-import org.axonframework.examples.addressbook.vaadin.data.ContactFormBean;
-import org.axonframework.examples.addressbook.vaadin.ui.*;
-import org.axonframework.sample.app.query.ContactEntry;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Jettro Coenradie

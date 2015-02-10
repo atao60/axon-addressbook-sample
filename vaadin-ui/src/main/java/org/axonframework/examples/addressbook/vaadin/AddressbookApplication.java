@@ -36,6 +36,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AddressbookApplication extends Application
         implements Button.ClickListener, Property.ValueChangeListener, ItemClickEvent.ItemClickListener, ContactForm.CommitListener {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private Button newContact = new Button("Add contact");
     private Button search = new Button("Search");
     private Button help = new Button("Help");

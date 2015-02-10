@@ -23,6 +23,11 @@ import com.vaadin.ui.VerticalSplitPanel;
  */
 public class ListView extends VerticalSplitPanel {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     public ListView(ContactList contactList, ContactForm contactForm) {
         setFirstComponent(contactList);
         setSecondComponent(contactForm);

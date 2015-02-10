@@ -24,6 +24,10 @@ import java.io.Serializable;
  * @author Jettro Coenradie
  */
 public class RemovedDTO implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private String contactIdentifier;
     private AddressType addressType;
 

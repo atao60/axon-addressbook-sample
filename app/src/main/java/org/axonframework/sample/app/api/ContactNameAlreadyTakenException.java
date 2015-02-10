@@ -23,6 +23,11 @@ package org.axonframework.sample.app.api;
  */
 public class ContactNameAlreadyTakenException extends RuntimeException {
     /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Accepts the name of the contact that you tried to take for a change or a new contact
      *
      * @param newContactName String containing the name you tried to take

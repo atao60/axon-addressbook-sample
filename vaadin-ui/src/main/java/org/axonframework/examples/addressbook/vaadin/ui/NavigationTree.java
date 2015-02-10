@@ -22,6 +22,10 @@ import com.vaadin.ui.Tree;
  * @author Jettro Coenradie
  */
 public class NavigationTree extends Tree {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     public static final Object SHOW_ALL = "Show all";
     public static final Object SEARCH = "Search";
 

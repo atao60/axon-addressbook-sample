@@ -39,6 +39,10 @@ import java.util.Map;
  */
 class Contact extends AbstractAnnotatedAggregateRoot {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private Map<AddressType, Address> addresses = new HashMap<AddressType, Address>();
     private String id;
 

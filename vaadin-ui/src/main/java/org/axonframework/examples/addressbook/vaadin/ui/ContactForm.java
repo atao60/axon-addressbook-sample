@@ -38,6 +38,10 @@ import java.io.Serializable;
  * @author Jettro Coenradie
  */
 public class ContactForm extends Form implements Button.ClickListener {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private Button save = new Button("Save", (Button.ClickListener) this);
     private Button cancel = new Button("Cancel", (Button.ClickListener) this);
     private Button edit = new Button("Edit", (Button.ClickListener) this);
@@ -172,6 +176,10 @@ public class ContactForm extends Form implements Button.ClickListener {
         EVENTS
      */
     public class FormIsSuccessfullyCommittedEvent extends Component.Event {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
         private String name;
         private String identifier;
 

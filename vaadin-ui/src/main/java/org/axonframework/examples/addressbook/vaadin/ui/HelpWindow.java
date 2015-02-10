@@ -23,6 +23,10 @@ import com.vaadin.ui.Window;
  * @author Jettro Coenradie
  */
 public class HelpWindow extends Window {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private static final String HELP_HTML_SNIPPET = "This is "
             + "an application built during <strong><a href=\""
             + "http://dev.vaadin.com/\">Vaadin</a></strong> "

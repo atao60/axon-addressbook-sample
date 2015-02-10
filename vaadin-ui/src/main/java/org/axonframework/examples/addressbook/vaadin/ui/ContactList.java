@@ -23,6 +23,11 @@ import org.axonframework.examples.addressbook.vaadin.data.ContactContainer;
  * @author Jettro Coenradie
  */
 public class ContactList extends Table {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     public ContactList(ContactContainer fromRepository) {
         setContainerDataSource(fromRepository);
 

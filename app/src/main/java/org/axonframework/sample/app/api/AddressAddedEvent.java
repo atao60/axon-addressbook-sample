@@ -21,6 +21,11 @@ package org.axonframework.sample.app.api;
  */
 public class AddressAddedEvent extends AddressRegisteredEvent {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     public AddressAddedEvent(String contactId, AddressType type, Address address) {
         super(contactId, type, address);
     }

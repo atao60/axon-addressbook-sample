@@ -23,6 +23,10 @@ import java.io.Serializable;
  */
 public abstract class AddressRegisteredEvent implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private final String contactId;
     private final AddressType type;
     private final Address address;

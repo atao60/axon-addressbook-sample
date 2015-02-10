@@ -27,6 +27,10 @@ import java.io.Serializable;
  */
 public class AddressDTO implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private String contactName;
     private String contactUUID;
 

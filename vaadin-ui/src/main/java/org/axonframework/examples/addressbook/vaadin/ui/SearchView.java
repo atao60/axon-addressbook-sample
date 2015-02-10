@@ -23,6 +23,10 @@ import org.axonframework.examples.addressbook.vaadin.data.ContactContainer;
  * @author Jettro Coenradie
  */
 public class SearchView extends Panel {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private TextField tf;
     private NativeSelect fieldToSearch;
     private CheckBox saveSearch;
@@ -41,6 +45,11 @@ public class SearchView extends Panel {
         searchName = new TextField("Search name");
         Button search = new Button("Search");
         search.addListener(new Button.ClickListener() {
+            /**
+             * 
+             */
+            private static final long serialVersionUID = 1L;
+
             public void buttonClick(Button.ClickEvent event) {
                 performSearch();
             }
@@ -61,6 +70,11 @@ public class SearchView extends Panel {
 
         saveSearch.setImmediate(true);
         saveSearch.addListener(new Button.ClickListener() {
+            /**
+             * 
+             */
+            private static final long serialVersionUID = 1L;
+
             public void buttonClick(Button.ClickEvent event) {
                 searchName.setVisible(event.getButton().booleanValue());
             }

@@ -23,6 +23,10 @@ import java.io.Serializable;
  */
 public class ContactCreatedEvent implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private final String contactId;
     private final String name;
 

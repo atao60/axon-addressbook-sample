@@ -59,6 +59,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class AutowiringApplicationServlet extends ApplicationServlet {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     protected final Logger log = Logger.getLogger(getClass());
 
     private WebApplicationContext webApplicationContext;

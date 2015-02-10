@@ -24,6 +24,10 @@ import java.io.Serializable;
  * @author Jettro Coenradie
  */
 public class ContactFormBean implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private String identifier;
     private String name;
 

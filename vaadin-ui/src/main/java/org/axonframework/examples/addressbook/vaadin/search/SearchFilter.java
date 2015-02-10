@@ -23,6 +23,10 @@ import java.io.Serializable;
  */
 public class SearchFilter implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private final String term;
     private final Object propertyId;
     private String searchName;

@@ -30,6 +30,10 @@ import java.util.List;
  */
 @Component
 public class ContactContainer extends BeanItemContainer<ContactEntry> implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     public static final Object[] NATURAL_COL_ORDER = new Object[]{"name", "identifier"};
     public static final String[] COL_HEADERS_ENGLISH = new String[]{"Name", "Identifier"};
 

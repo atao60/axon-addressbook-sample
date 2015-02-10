@@ -34,6 +34,19 @@
     </modules>
 
     <properties>
+        <projectEncoding>UTF-8</projectEncoding>
+        <project.build.sourceEncoding>${projectEncoding}</project.build.sourceEncoding>
+        <project.reporting.sourceEncoding>${projectEncoding}</project.reporting.sourceEncoding>
+        
+        <jdkVersion>>1.7</jdkVersion>
+        <maven.compiler.source>${jdkVersion}</maven.compiler.source>
+        <maven.compiler.target>${jdkVersion}</maven.compiler.target>
+        <maven.compiler.fork>true</maven.compiler.fork>
+        <maven.compiler.compilerVersion>${jdkVersion}</maven.compiler.compilerVersion>
+        <maven.compiler.verbose>true</maven.compiler.verbose>
+        <maven.compiler.optimize>true</maven.compiler.optimize>
+        <maven.compiler.debug>true</maven.compiler.debug>
+    
         <slf4j.version>1.6.1</slf4j.version>
         <spring.version>3.0.5.RELEASE</spring.version>
         <axon.version>2.0.2</axon.version>
@@ -44,10 +57,6 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>

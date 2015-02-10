@@ -41,10 +41,6 @@
             <url>http://repository.sonatype.org/content/groups/flexgroup/</url>
         </repository>
         <repository>
-            <id>axon</id>
-            <url>http://oss.sonatype.org/content/groups/public/</url>
-        </repository>
-        <repository>
             <id>spicefactory</id>
             <url>http://svn.code.sf.net/adobe/cairngorm/code/cairngorm3/maven-repository/</url>
         </repository>

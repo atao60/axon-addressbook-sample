@@ -16,90 +16,187 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.axonframework.samples</groupId>
-    <artifactId>axon-addressbook</artifactId>
-    <version>2.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+	<groupId>org.axonframework.samples</groupId>
+	<artifactId>axon-addressbook</artifactId>
+	<version>2.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
-    <name>Axon Address Book Sample Project</name>
-    <modules>
-        <module>app</module>
-        <module>web-ui</module>
-        <module>vaadin-ui</module>
-        <module>flex-ui</module>
-        <module>rest-ui</module>
-    </modules>
+	<name>Axon Address Book Sample Project</name>
+	<modules>
+		<module>app</module>
+		<module>web-ui</module>
+		<module>vaadin-ui</module>
+		<module>flex-ui</module>
+		<module>rest-ui</module>
+	</modules>
 
-    <properties>
-        <projectEncoding>UTF-8</projectEncoding>
-        <project.build.sourceEncoding>${projectEncoding}</project.build.sourceEncoding>
-        <project.reporting.sourceEncoding>${projectEncoding}</project.reporting.sourceEncoding>
-        
-        <jdkVersion>>1.7</jdkVersion>
-        <maven.compiler.source>${jdkVersion}</maven.compiler.source>
-        <maven.compiler.target>${jdkVersion}</maven.compiler.target>
-        <maven.compiler.fork>true</maven.compiler.fork>
-        <maven.compiler.compilerVersion>${jdkVersion}</maven.compiler.compilerVersion>
-        <maven.compiler.verbose>true</maven.compiler.verbose>
-        <maven.compiler.optimize>true</maven.compiler.optimize>
-        <maven.compiler.debug>true</maven.compiler.debug>
-    
-        <slf4j.version>1.6.1</slf4j.version>
-        <spring.version>3.0.5.RELEASE</spring.version>
-        <axon.version>2.0.2</axon.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+	<properties>
+		<projectEncoding>UTF-8</projectEncoding>
+		<project.build.sourceEncoding>${projectEncoding}</project.build.sourceEncoding>
+		<project.reporting.sourceEncoding>${projectEncoding}</project.reporting.sourceEncoding>
+
+		<jdkVersion>1.7</jdkVersion>
+		<maven.compiler.source>${jdkVersion}</maven.compiler.source>
+		<maven.compiler.target>${jdkVersion}</maven.compiler.target>
+		<maven.compiler.fork>true</maven.compiler.fork>
+		<maven.compiler.compilerVersion>${jdkVersion}</maven.compiler.compilerVersion>
+		<maven.compiler.verbose>true</maven.compiler.verbose>
+		<maven.compiler.optimize>true</maven.compiler.optimize>
+		<maven.compiler.debug>true</maven.compiler.debug>
+
+        <compiler.maven.version>3.2</compiler.maven.version>
+		<jetty.maven.groupId>org.mortbay.jetty</jetty.maven.groupId>
+		<jetty.maven.artifactId>maven-jetty-plugin</jetty.maven.artifactId>
+		<jetty.maven.version>6.1.22</jetty.maven.version>
+
+		<slf4j.version>1.6.1</slf4j.version>
+		<spring.version>3.0.5.RELEASE</spring.version>
+		<axon.version>2.0.2</axon.version>
+		
+	</properties>
 
 	<build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-   
-    <dependencyManagement>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${compiler.maven.version}</version>
+                </plugin>
+				<plugin>
+					<groupId>${jetty.maven.groupId}</groupId>
+					<artifactId>${jetty.maven.artifactId}</artifactId>
+					<version>${jetty.maven.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
                 <version>2.2</version>
             </dependency>
-        </dependencies>
-    </dependencyManagement>
+            
+            <!-- validation -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.0.0.GA</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>4.0.2.GA</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            
+            <!-- web -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1.0</version>
+                <scope>provided</scope>
+            </dependency>
 
-    <dependencies>
+           <!-- log -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jul-to-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.15</version>
+				<exclusions>
+					<exclusion>
+						<groupId>com.sun.jdmk</groupId>
+						<artifactId>jmxtools</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>com.sun.jmx</groupId>
+						<artifactId>jmxri</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>javax.mail</groupId>
+						<artifactId>mail</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>javax.jms</groupId>
+						<artifactId>jms</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+            <!-- test -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.9</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>1.8.5</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>3.0.5.RELEASE</version>
+				<scope>test</scope>
+			</dependency>
+			
+		</dependencies>
+	</dependencyManagement>
+	
+	<dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.9</version>
-            <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>1.8.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>3.0.5.RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-    
-    <repositories>
-      <repository>
-          <id>sonatype-public</id>
-          <name>Sonatype public repository</name>
-          <url>http://oss.sonatype.org/content/groups/public</url>
-          <snapshots>
-            <enabled>true</enabled>
-          </snapshots>
-      </repository>
-    </repositories>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>sonatype-public</id>
+			<name>Sonatype public repository</name>
+			<url>http://oss.sonatype.org/content/groups/public</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>

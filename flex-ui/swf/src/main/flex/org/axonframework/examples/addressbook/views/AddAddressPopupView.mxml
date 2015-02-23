@@ -15,11 +15,19 @@
   ~ limitations under the License.
   -->
 
-<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml"
-                xmlns:sf="http://www.spicefactory.org/parsley/flex"
-                layout="vertical" width="500" height="300" showCloseButton="true" close="closeMe()"
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:mx="library://ns.adobe.com/flex/mx"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:sf="http://www.spicefactory.org/parsley/flex"
+               width="500" height="300" 
+               close="closeMe()"
         >
-    <mx:Script><![CDATA[
+
+    <s:layout>
+        <s:VerticalLayout />
+    </s:layout>
+               
+    <fx:Script><![CDATA[
         import mx.managers.PopUpManager;
 
         import org.axonframework.examples.addressbook.messages.command.NewAddressCommandMessage;
@@ -55,9 +63,11 @@
             PopUpManager.removePopUp(this)
         }
 
-        ]]></mx:Script>
+        ]]></fx:Script>
 
+<fx:Declarations>
     <sf:Configure/>
+</fx:Declarations>
 
     <mx:Form defaultButton="{createAddressButton}">
         <mx:FormItem id="street" label="Street">
@@ -71,11 +81,11 @@
         </mx:FormItem>
         <mx:FormItem id="type" label="Type">
             <mx:ComboBox id="inputType" selectedItem="{address.type}">
-                <mx:Array>
-                    <mx:String>WORK</mx:String>
-                    <mx:String>PRIVATE</mx:String>
-                    <mx:String>VACATION</mx:String>
-                </mx:Array>
+                <fx:Array>
+                    <fx:String>WORK</fx:String>
+                    <fx:String>PRIVATE</fx:String>
+                    <fx:String>VACATION</fx:String>
+                </fx:Array>
             </mx:ComboBox>
         </mx:FormItem>
         <mx:HBox>
@@ -86,4 +96,4 @@
         </mx:HBox>
 
     </mx:Form>
-</mx:TitleWindow>
+</s:TitleWindow>

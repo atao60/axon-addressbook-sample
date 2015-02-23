@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -30,17 +30,75 @@
     <name>Axon Address Book Sample - Vaadin ui</name>
 
     <properties>
-        <vaadi.jetty.port>${jetty.port}</vaadi.jetty.port>
+        <vaadin.jetty.port>${jetty.port}</vaadin.jetty.port>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <configuration>
+                    <httpConnector>
+                        <port>${vaadin.jetty.port}</port>
+                    </httpConnector>
+
+                    <stopPort>9966</stopPort>
+                    <stopKey>project-name</stopKey>
+                    <!-- Redeploy every x seconds if changes are detected, 0 for no automatic redeployment -->
+                    <scanIntervalSeconds>0</scanIntervalSeconds>
+                    <!-- make sure Jetty also finds the widgetset -->
+                    <webAppConfig>
+                        <extraClasspath>../app/target/axon-addressbook-app-${project.version}.jar</extraClasspath>
+                        <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
+                        <baseResource
+                            implementation="org.eclipse.jetty.util.resource.ResourceCollection">
+                            <!-- Workaround for Maven/Jetty issue http://jira.codehaus.org/browse/JETTY-680 -->
+                            <!-- <resources>src/main/webapp,${project.build.directory}/${project.build.finalName}</resources> -->
+                            <resourcesAsCSV>
+                                src/main/webapp<!--,${project.build.directory}/${project.build.finalName}-->
+                            </resourcesAsCSV>
+                        </baseResource>
+                    </webAppConfig>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>not-jetty-run</id>
+            <activation>
+                <property>
+                    <name>!jetty-run</name>
+                </property>
+            </activation>
+            <dependencies>
+                <!-- Internal dependencies -->
+                <dependency>
+                    <groupId>org.axonframework.samples</groupId>
+                    <artifactId>axon-addressbook-app</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+    
     <dependencies>
+
         <!-- Internal dependencies -->
+        <!-- 
         <dependency>
             <groupId>org.axonframework.samples</groupId>
             <artifactId>axon-addressbook-app</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+         -->
+         
         <!-- web -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -49,54 +107,22 @@
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin</artifactId>
-            <version>6.5.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         
         <!-- log -->
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
+            <artifactId>log4j-over-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
         </dependency>
 
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>${jetty.maven.groupId}</groupId>
-                <artifactId>${jetty.maven.artifactId}</artifactId>
-                <configuration>
-                    <httpConnector>
-                        <port>${vaadi.jetty.port}</port>
-                    </httpConnector>
-                
-                    <stopPort>9966</stopPort>
-                    <stopKey>project-name</stopKey>
-                    <!-- Redeploy every x seconds if changes are detected, 0 for no automatic redeployment -->
-                    <scanIntervalSeconds>0</scanIntervalSeconds>
-                    <!-- make sure Jetty also finds the widgetset -->
-                    <webAppConfig>
-                        <contextPath>/</contextPath>
-                        <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
-                            <!-- Workaround for Maven/Jetty issue http://jira.codehaus.org/browse/JETTY-680 -->
-                            <!-- <resources>src/main/webapp,${project.build.directory}/${project.build.finalName}</resources> -->
-                            <resourcesAsCSV>src/main/webapp,${project.build.directory}/${project.build.finalName}
-                            </resourcesAsCSV>
-                        </baseResource>
-                    </webAppConfig>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

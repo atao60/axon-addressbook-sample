@@ -15,10 +15,14 @@
   ~ limitations under the License.
   -->
 
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:views="org.axonframework.examples.addressbook.views.*"
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009"
+           xmlns:mx="library://ns.adobe.com/flex/mx"
+           xmlns:s="library://ns.adobe.com/flex/spark"
+           xmlns:sf="http://www.spicefactory.org/parsley/flex"
+           xmlns:views="org.axonframework.examples.addressbook.views.*"
            width="100%"
-           xmlns:sf="http://www.spicefactory.org/parsley/flex">
-    <mx:Script><![CDATA[
+           >
+    <fx:Script><![CDATA[
         import org.axonframework.examples.addressbook.messages.command.SearchForAddressesCommandMessage;
         import org.axonframework.examples.addressbook.model.Address;
 
@@ -30,8 +34,10 @@
             dispatcher(new SearchForAddressesCommandMessage(searchAddress));
         }
 
-        ]]></mx:Script>
+        ]]></fx:Script>
+<fx:Declarations>
     <sf:Configure/>
+</fx:Declarations>
     <mx:VBox>
         <mx:HBox verticalAlign="middle">
             <mx:Form defaultButton="{findButton}">

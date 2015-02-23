@@ -16,9 +16,9 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <parent>
         <artifactId>axon-addressbook-flexui</artifactId>
         <groupId>org.axonframework.samples</groupId>
@@ -30,112 +30,95 @@
 
     <name>Axon Address Book Sample - Flex ui war</name>
 
-    <properties>
-        <flex.jetty.port>${jetty.port}</flex.jetty.port>
-    </properties>
-
     <build>
         <plugins>
+            <!-- flexmojos-maven-plugin:copy-flex-resources:7.0.1 not compatible with API of Maven 3.2 
+                 maven-dependency-plugin can do the job -->
             <plugin>
-                <groupId>org.sonatype.flexmojos</groupId>
-                <artifactId>flexmojos-maven-plugin</artifactId>
-                <version>3.5.0</version>
+                <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
+                        <phase>prepare-package</phase>
                         <goals>
-                            <goal>copy-flex-resources</goal>
+                            <goal>copy-dependencies</goal>
                         </goals>
+                        <configuration>
+                            <stripVersion>true</stripVersion>
+                            <includeTypes>swf</includeTypes>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
-                <groupId>${jetty.maven.groupId}</groupId>
-                <artifactId>${jetty.maven.artifactId}</artifactId>
-                 <configuration>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/webapp/WEB-INF</directory>
+                            <filtering>true</filtering>
+                            <targetPath>WEB-INF</targetPath>
+                            <includes>
+                                <include>web.xml</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+
+            <!-- force the folder for temporary files -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId> jetty-maven-plugin</artifactId>
+                <configuration>
                     <httpConnector>
                         <port>${flex.jetty.port}</port>
                     </httpConnector>
-                 </configuration>
+                    <webAppConfig>
+                        <descriptor>${project.build.directory}/${project.build.finalName}/WEB-INF/web.xml</descriptor>
+                    </webAppConfig>
+                </configuration>
             </plugin>
         </plugins>
     </build>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-webmvc</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-beans</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context-support</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <profiles>
+        <profile>
+            <id>not-jetty-run</id>
+            <activation>
+                <property>
+                    <name>!jetty-run</name>
+                </property>
+            </activation>
+            <dependencies>
+                <!-- Internal dependencies -->
+                <dependency>
+                    <groupId>org.axonframework.samples</groupId>
+                    <artifactId>axon-addressbook-app</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.axonframework.samples</groupId>
+                    <artifactId>${swf-artifactId}</artifactId>
+                    <version>${project.version}</version>
+                    <type>swf</type>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
     <dependencies>
-        <!-- Internal dependencies -->
-        <dependency>
-            <groupId>org.axonframework.samples</groupId>
-            <artifactId>axon-addressbook-app</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.axonframework.samples</groupId>
-            <artifactId>axon-addressbook-swf</artifactId>
-            <version>${project.version}</version>
-            <type>swf</type>
-        </dependency>
 
         <!-- spring dependencies -->
         <dependency>
             <groupId>org.springframework.flex</groupId>
-            <artifactId>spring-flex</artifactId>
-            <version>1.0.2.RELEASE</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>${spring.version}</version>
+            <artifactId>spring-flex-core</artifactId>
+            <version>${springflex.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -144,13 +127,31 @@
             </exclusions>
         </dependency>
 
-        <!-- log -->
-        <!-- 
+        <!--  misc -->
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+            <groupId>org.spicefactory</groupId>
+            <artifactId>parsley-flex4</artifactId>
+            <version>${spicefactory.version}</version>
+            <type>swc</type>
         </dependency>
-         -->
+
+        <dependency>
+            <groupId>org.spicefactory</groupId>
+            <artifactId>spicelib-flex</artifactId>
+            <version>${spicefactory.version}</version>
+            <type>swc</type>
+        </dependency>
+        
+        <!-- log -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

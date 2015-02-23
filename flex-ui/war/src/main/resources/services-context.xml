@@ -16,12 +16,22 @@
   -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flex="http://www.springframework.org/schema/flex"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/flex http://www.springframework.org/schema/flex/spring-flex-1.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-
+       xmlns:flex="http://www.springframework.org/schema/flex"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd 
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/flex 
+                           http://www.springframework.org/schema/flex/spring-flex-1.6.xsd">
+<!-- 
+    <bean id="message-broker" class="org.springframework.flex.core.MessageBrokerFactoryBean" >
+        <property name="servicesConfigPath" value="classpath*:services-config.xml" />
+    </bean>
+ -->
     <flex:message-broker services-config-path="classpath*:services-config.xml"/>
-
+    
     <context:component-scan base-package="org.axonframework.examples.addressbook.web"/>
 
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">

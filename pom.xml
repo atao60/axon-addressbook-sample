@@ -16,92 +16,418 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.axonframework.samples</groupId>
-	<artifactId>axon-addressbook</artifactId>
-	<version>2.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
+    <groupId>org.axonframework.samples</groupId>
+    <artifactId>axon-addressbook</artifactId>
+    <version>2.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-	<name>Axon Address Book Sample Project</name>
-	<modules>
-		<module>app</module>
-		<module>web-ui</module>
-		<module>vaadin-ui</module>
-		<module>flex-ui</module>
-		<module>rest-ui</module>
-	</modules>
+    <name>Axon Address Book Sample Project</name>
 
-	<properties>
-	
+    <modules>
+        <module>app</module>
+        <module>web-ui</module>
+        <module>vaadin-ui</module>
+        <module>flex-ui</module>
+        <module>rest-ui</module>
+    </modules>
+
+    <properties>
+
+        <!-- Project properties -->
         <jetty.port>8087</jetty.port>
 
+        <!-- Compiler and encoding -->
+        <projectEncoding>UTF-8</projectEncoding>
+        <project.build.sourceEncoding>${projectEncoding}</project.build.sourceEncoding>
+        <project.reporting.sourceEncoding>${projectEncoding}</project.reporting.sourceEncoding>
 
-		<projectEncoding>UTF-8</projectEncoding>
-		<project.build.sourceEncoding>${projectEncoding}</project.build.sourceEncoding>
-		<project.reporting.sourceEncoding>${projectEncoding}</project.reporting.sourceEncoding>
+        <jdkVersion>1.7</jdkVersion>
+        <maven.compiler.source>${jdkVersion}</maven.compiler.source>
+        <maven.compiler.target>${jdkVersion}</maven.compiler.target>
+        <maven.compiler.fork>true</maven.compiler.fork>
+        <maven.compiler.compilerVersion>${jdkVersion}</maven.compiler.compilerVersion>
+        <maven.compiler.verbose>true</maven.compiler.verbose>
+        <maven.compiler.optimize>true</maven.compiler.optimize>
+        <maven.compiler.debug>true</maven.compiler.debug>
 
-		<jdkVersion>1.7</jdkVersion>
-		<maven.compiler.source>${jdkVersion}</maven.compiler.source>
-		<maven.compiler.target>${jdkVersion}</maven.compiler.target>
-		<maven.compiler.fork>true</maven.compiler.fork>
-		<maven.compiler.compilerVersion>${jdkVersion}</maven.compiler.compilerVersion>
-		<maven.compiler.verbose>true</maven.compiler.verbose>
-		<maven.compiler.optimize>true</maven.compiler.optimize>
-		<maven.compiler.debug>true</maven.compiler.debug>
+        <!-- Maven and plugin management -->
+        <maven.minimal.version>3.1</maven.minimal.version>
 
+        <build.helper.maven.version>1.9.1</build.helper.maven.version>
         <compiler.maven.version>3.2</compiler.maven.version>
-		<jetty.maven.groupId><!--org.mortbay.jetty-->org.eclipse.jetty</jetty.maven.groupId>
-		<jetty.maven.artifactId><!--maven-jetty-plugin-->jetty-maven-plugin</jetty.maven.artifactId>
-		<jetty.maven.version><!--6.1.22-->9.2.7.v20150116</jetty.maven.version>
+        <resources.maven.version>2.7</resources.maven.version>
+        <clean.maven.version>2.6.1</clean.maven.version>
+        <install.maven.version>2.5.2</install.maven.version>
+        <surefire.maven.version>2.18.1</surefire.maven.version>
+        <jar.maven.version>2.4</jar.maven.version>
+        <war.maven.version>2.6</war.maven.version>
+        <deploy.maven.version>2.7</deploy.maven.version>
+        <site.maven.version>3.3</site.maven.version>
+        <enforcer.maven.version>1.4</enforcer.maven.version>
+        <dependency.maven.version>2.10</dependency.maven.version>
+        <properties.maven.version>1.0-alpha-2</properties.maven.version>
 
-		<slf4j.version>1.6.1</slf4j.version>
-		<spring.version>3.0.5.RELEASE</spring.version>
-		<axon.version>2.0.2</axon.version>
-		
-	</properties>
+        <jetty.maven.groupId>org.eclipse.jetty</jetty.maven.groupId><!--org.mortbay.jetty-->
+        <jetty.maven.artifactId>jetty-maven-plugin</jetty.maven.artifactId><!--maven-jetty-plugin-->
+        <jetty.maven.version>9.2.7.v20150116</jetty.maven.version><!--6.1.22-->
+        <flexmojos.maven.version>7.0.1</flexmojos.maven.version><!--3.5.0, 4.0-RC2-->
 
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-		</plugins>
-		<pluginManagement>
-			<plugins>
+        <!-- Dependency management -->
+        <slf4j.version>1.7.10</slf4j.version><!--1.6.1-->
+        <logback.version>1.1.2</logback.version>
+        <log4j.version>1.2.17</log4j.version><!--1.2.15-->
+        <junit.version>4.12</junit.version><!--4.9-->
+        <mockito.version>1.10.19</mockito.version><!--1.8.5-->
+        <spring.version>4.1.4.RELEASE</spring.version><!--3.0.5.RELEASE, 3.2.13.RELEASE, 4.0.9.RELEASE, 4.1.4.RELEASE-->
+        <hibernate.version>4.3.8.Final</hibernate.version><!--3.4.0.GA, 4.1.6.Final-->
+        <hibernate.validator.version>5.1.3.Final</hibernate.validator.version><!--4.0.2.GA, 4.2.0.Final-->
+        <validation.api.version>1.1.0.Final</validation.api.version><!--1.0.0.GA-->
+        <hsqldb.version>2.3.2</hsqldb.version><!--1.8.0.10-->
+        <c3p0.groupId>com.mchange</c3p0.groupId><!--c3p0-->
+        <c3p0.version>0.9.5</c3p0.version><!--0.9.1.2-->
+
+        <axon.version>2.4</axon.version><!--2.0.2-->
+        <cglib.version>3.1</cglib.version><!--2.2-->
+        <xstream.version>1.4.7</xstream.version><!--1.4.4-->
+
+        <servlet.api.version>3.1.0</servlet.api.version>
+        <jsp.api.version>2.2</jsp.api.version>
+        <jstl.version>1.2</jstl.version><!--1.1.2-->
+        <taglibs.version>1.1.2</taglibs.version>
+        <sitemesh.version>2.4.2</sitemesh.version>
+
+        <vaadin.version>6.8.15</vaadin.version><!--6.5.0-->
+
+        <flex.version>4.14.0.20150123</flex.version><!--3.2.0.3958, 4.5.1.21328-->
+        <flash.version>16.0</flash.version><!-- 16.0 -->
+        <flexunit.version>4.1.0</flexunit.version><!--0.85, 0.9-->
+        <spicefactory.version>2.4.0</spicefactory.version><!-- 2.2.0 -->
+        <!-- Version 1.6.0.RC1 required for Spring Flex to avoid bug FLEX-220 -->
+        <springflex.version>1.6.0.RC1</springflex.version><!--1.0.2.RELEASE, 1.5.2.RELEASE-->
+        <blazeds.version>4.6.0.23207</blazeds.version><!--4.0.0.14931-->
+
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${compiler.maven.version}</version>
                 </plugin>
-				<plugin>
-					<groupId>${jetty.maven.groupId}</groupId>
-					<artifactId>${jetty.maven.artifactId}</artifactId>
-					<version>${jetty.maven.version}</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${resources.maven.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${clean.maven.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${install.maven.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${surefire.maven.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${jar.maven.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${war.maven.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${deploy.maven.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${site.maven.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${dependency.maven.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>properties-maven-plugin</artifactId>
+                    <version>${properties.maven.version}</version>
+                    <configuration>
+                        <properties>
+                            <property>
+                                <name>java.io.tmpdir</name>
+                                <value>./target/events/</value>
+                            </property>
+                        </properties>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>set-system-properties</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>${jetty.maven.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>${build.helper.maven.version}</version>
+                    <executions>
+                        <!-- provides enforcer and maven version with maven.version property -->
+                        <execution>
+                            <id>get-maven-version</id>
+                            <goals>
+                                <goal>maven-version</goal>
+                            </goals>
+                        </execution>
+                        <!-- provides current year with current.year property -->
+                        <execution>
+                            <id>get-current-year</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>timestamp-property</goal>
+                            </goals>
+                            <configuration>
+                                <name>current.year</name>
+                                <locale>en</locale>
+                                <pattern>yyyy</pattern>
+                                <units>year</units>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${enforcer.maven.version}</version>
+                    <executions>
+                        <execution>
+                            <id>enforce-versions</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <fail>true</fail>
+                                <rules>
+                                    <!-- FlexMojos 6 requires Maven 3.0.5 -->
+                                    <!-- Maven Site Plugin requires Maven 2.2.1 -->
+                                    <!-- FindBugs Maven Plugin 3.0.0 requires Maven 3.0.1 -->
+                                    <!-- Gemini Blueprint requires Maven 3.0.3 -->
+                                    <!-- modules executed with chronological order inside a phase requires Maven 3.0.3 -->
+                                    <!-- In-Memory Database Maven Plugin requires 3.0.5 -->
+                                    <requireMavenVersion>
+                                        <version>${maven.minimal.version}</version>
+                                        <message>
+                                            [ERROR] OLD MAVEN
+                                            [${maven.version}] in use.
+                                            Maven
+                                            ${maven.minimal.version} or
+                                            newer is required.
+                                        </message>
+                                    </requireMavenVersion>
 
-	<dependencyManagement>
+                                    <!-- Jetty 9 requires JDK 1.7 -->
+                                    <!-- Vaadin 7 requires JDK 1.6 -->
+                                    <!-- Last versions of FindBugs requires JDK 1.7 -->
+                                    <!-- maven-javadoc-plugin requires JDK 1.5 -->
+                                    <!-- commons-dbcp2 requires JDK 1.7 -->
+                                    <requireJavaVersion>
+                                        <version>${jdkVersion}</version>
+                                        <message>
+                                            [ERROR] OLD JDK
+                                            [${java.version}] in use.
+                                            This project requires JDK
+                                            ${jdkVersion} or newer.
+                                        </message>
+                                    </requireJavaVersion>
+
+                                    <requirePluginVersions>
+                                        <banLatest>true</banLatest>
+                                        <banRelease>true</banRelease>
+                                        <banSnapshots>true</banSnapshots>
+                                    </requirePluginVersions>
+
+                                    <bannedDependencies>
+                                        <searchTransitive>true</searchTransitive>
+                                        <excludes>
+                                            <exclude>commons-logging</exclude>
+                                            <exclude>log4j</exclude>
+                                            <exclude>org.apache.logging.log4j</exclude>
+                                            <exclude>org.springframework:2.*</exclude>
+                                            <exclude>org.springframework:3.*</exclude>
+                                            <exclude>org.hibernate:3.*</exclude>
+                                        </excludes>
+                                    </bannedDependencies>
+
+                                </rules>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+    </build>
+
+   <profiles>
+        <profile>
+            <id>jetty-run</id>
+            <activation>
+                <property>
+                    <name>jetty-run</name>
+                </property>
+            </activation>
+            <dependencies>
+                <!-- Axon -->
+                <dependency>
+                    <groupId>org.axonframework</groupId>
+                    <artifactId>axon-core</artifactId>
+                    <version>${axon.version}</version>
+                </dependency>
+        
+                <!-- persistence -->
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-orm</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-entitymanager</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>${c3p0.groupId}</groupId>
+                    <artifactId>c3p0</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.hsqldb</groupId>
+                    <artifactId>hsqldb</artifactId>
+                </dependency>
+        
+                
+                <!-- log -->
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
+    <dependencyManagement>
         <dependencies>
+            <!-- axon -->
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
-                <version>2.2</version>
+                <version>${cglib.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${xstream.version}</version>
+            </dependency>
+
+            <!-- Spring -->
+            <dependency> <!-- needed here to get the right version -->
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+                <exclusions>
+                    <exclusion><!-- See spring-core -->
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency> <!-- needed here to get the right version -->
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${spring.version}</version>
+                <exclusions>
+                    <exclusion><!-- See spring-core -->
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+                <exclusions>
+                    <exclusion><!-- See spring-core -->
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency> <!-- needed here to get the right version -->
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+                <exclusions>
+                    <exclusion><!-- See spring-core -->
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            
+            <!-- persistence -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${spring.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>${hsqldb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${c3p0.groupId}</groupId>
+                <artifactId>c3p0</artifactId>
+                <version>${c3p0.version}</version>
             </dependency>
             
             <!-- validation -->
             <dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
-                <version>1.0.0.GA</version>
+                <version>${validation.api.version}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>4.0.2.GA</version>
+                <version>${hibernate.validator.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.slf4j</groupId>
@@ -114,93 +440,123 @@
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
-                <version>3.1.0</version>
+                <version>${servlet.api.version}</version>
                 <scope>provided</scope>
             </dependency>
+            <dependency> <!-- needed here to get the right version -->
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+                <exclusions>
+                    <exclusion><!-- See spring-core -->
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+                <exclusions>
+                    <exclusion><!-- See spring-core -->
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin</artifactId>
+                <version>${vaadin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>jsp-api</artifactId>
+                <version>${jsp.api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>${jstl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>taglibs</groupId>
+                <artifactId>standard</artifactId>
+                <version>${taglibs.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>opensymphony</groupId>
+                <artifactId>sitemesh</artifactId>
+                <version>${sitemesh.version}</version>
+            </dependency>
 
-           <!-- log -->
+            <!-- log -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jcl-over-slf4j</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jul-to-slf4j</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-log4j12</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>log4j</groupId>
-				<artifactId>log4j</artifactId>
-				<version>1.2.15</version>
-				<exclusions>
-					<exclusion>
-						<groupId>com.sun.jdmk</groupId>
-						<artifactId>jmxtools</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>com.sun.jmx</groupId>
-						<artifactId>jmxri</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>javax.mail</groupId>
-						<artifactId>mail</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>javax.jms</groupId>
-						<artifactId>jms</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
 
             <!-- test -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>4.9</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-core</artifactId>
-				<version>1.8.5</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-test</artifactId>
-				<version>3.0.5.RELEASE</version>
-				<scope>test</scope>
-			</dependency>
-			
-		</dependencies>
-	</dependencyManagement>
-	
-	<dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
-	</dependencies>
+    </dependencies>
 
-	<repositories>
-		<repository>
-			<id>sonatype-public</id>
-			<name>Sonatype public repository</name>
-			<url>http://oss.sonatype.org/content/groups/public</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+    <repositories>
+        <repository>
+            <id>sonatype-public</id>
+            <name>Sonatype public repository</name>
+            <url>http://oss.sonatype.org/content/groups/public</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>

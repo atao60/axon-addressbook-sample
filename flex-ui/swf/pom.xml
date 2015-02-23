@@ -36,48 +36,132 @@
         <testSourceDirectory>src/test/flex</testSourceDirectory>
         <plugins>
             <plugin>
-                <groupId>org.sonatype.flexmojos</groupId>
+                <groupId>net.flexmojos.oss</groupId>
                 <artifactId>flexmojos-maven-plugin</artifactId>
-                <version>3.5.0</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <locales>
-                        <locale>en_US</locale>
-                    </locales>
-                    <debug>true</debug>
-                    <configurationReport>true</configurationReport>
-                </configuration>
             </plugin>
         </plugins>
     </build>
 
     <dependencies>
+
         <dependency>
-            <groupId>com.adobe.flex.framework</groupId>
-            <artifactId>flex-framework</artifactId>
-            <version>3.2.0.3958</version>
+            <groupId>org.apache.flex</groupId>
+            <artifactId>framework</artifactId>
             <type>pom</type>
         </dependency>
 
         <dependency>
-            <groupId>com.adobe.flexunit</groupId>
-            <artifactId>flexunit</artifactId>
-            <version>0.85</version>
+            <groupId>com.adobe.flash.framework</groupId>
+            <artifactId>playerglobal</artifactId>
             <type>swc</type>
-            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flexunit</groupId>
+            <artifactId>flexunit</artifactId>
+            <classifier>flex4</classifier>
+            <type>swc</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>advancedgrids</artifactId>
+            <type>rb.swc</type>
+            <classifier>en_US</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>apache</artifactId>
+            <type>rb.swc</type>
+            <classifier>en_US</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>charts</artifactId>
+            <type>rb.swc</type>
+            <classifier>en_US</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>experimental</artifactId>
+            <type>rb.swc</type>
+            <classifier>en_US</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>flash-integration</artifactId>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>flash-integration</artifactId>
+            <type>swc</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>flash-integration</artifactId>
+            <type>rb.swc</type>
+            <classifier>en_US</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>framework</artifactId>
+            <type>rb.swc</type>
+            <classifier>en_US</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>mx</artifactId>
+            <type>rb.swc</type>
+            <classifier>en_US</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>rpc</artifactId>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>rpc</artifactId>
+            <type>rb.swc</type>
+            <classifier>en_US</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>spark</artifactId>
+            <type>rb.swc</type>
+            <classifier>en_US</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>textLayout</artifactId>
+            <type>rb.swc</type>
+            <classifier>en_US</classifier>
         </dependency>
 
         <dependency>
             <groupId>org.spicefactory</groupId>
-            <artifactId>parsley-flex3</artifactId>
-            <version>2.2.0</version>
+            <artifactId>parsley-flex4</artifactId>
+            <version>${spicefactory.version}</version>
             <type>swc</type>
         </dependency>
 
         <dependency>
             <groupId>org.spicefactory</groupId>
             <artifactId>spicelib-flex</artifactId>
-            <version>2.2.0</version>
+            <version>${spicefactory.version}</version>
             <type>swc</type>
         </dependency>
     </dependencies>

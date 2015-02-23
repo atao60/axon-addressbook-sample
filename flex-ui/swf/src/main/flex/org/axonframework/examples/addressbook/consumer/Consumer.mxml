@@ -15,8 +15,11 @@
   ~ limitations under the License.
   -->
 
-<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml">
-    <mx:Script><![CDATA[
+<fx:Object xmlns:fx="http://ns.adobe.com/mxml/2009"
+           xmlns:mx="library://ns.adobe.com/flex/mx"
+           xmlns:s="library://ns.adobe.com/flex/spark"
+    >
+    <fx:Script><![CDATA[
         import mx.messaging.events.MessageEvent;
 
         import org.axonframework.examples.addressbook.messages.notification.ErrorNotificationMessage;
@@ -50,12 +53,15 @@
             dispatcher(new ErrorNotificationMessage("Fault while receiving message" + event.toString()))
         }
 
-        ]]></mx:Script>
+        ]]></fx:Script>
+        
+<fx:Declarations>
     <mx:Consumer id="consumer" destination="event-bus" channelSet="{cs}" message="messageHandler(event)"
                  fault=" faultHandler(event)"/>
 
     <mx:ChannelSet id="cs">
         <mx:AMFChannel url="messagebroker/pollingamf"/>
     </mx:ChannelSet>
+</fx:Declarations>
 
-</mx:Object>
+</fx:Object>

@@ -15,11 +15,14 @@
   ~ limitations under the License.
   -->
 
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%"
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009"
+           xmlns:mx="library://ns.adobe.com/flex/mx"
+           xmlns:s="library://ns.adobe.com/flex/spark" 
            xmlns:sf="http://www.spicefactory.org/parsley/flex"
+           width="100%"
         >
 
-    <mx:Script><![CDATA[
+    <fx:Script><![CDATA[
         import org.axonframework.examples.addressbook.controllers.ViewConstants;
         import org.axonframework.examples.addressbook.messages.command.ChangeViewCommandMessage;
 
@@ -29,9 +32,11 @@
         private function changeView(identity:String):void {
             dispatcher(new ChangeViewCommandMessage(identity));
         }
-        ]]></mx:Script>
+        ]]></fx:Script>
 
+<fx:Declarations>
     <sf:Configure/>
+</fx:Declarations>
 
     <mx:HBox>
         <mx:ControlBar defaultButton="{homeButton}">

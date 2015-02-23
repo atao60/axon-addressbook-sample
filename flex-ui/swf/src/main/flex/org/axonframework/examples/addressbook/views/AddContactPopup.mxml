@@ -15,11 +15,19 @@
   ~ limitations under the License.
   -->
 
-<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml"
-                xmlns:sf="http://www.spicefactory.org/parsley/flex"
-                layout="vertical" width="500" height="300" showCloseButton="true" close="closeMe()"
-                title="Store contact">
-    <mx:Script><![CDATA[
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:mx="library://ns.adobe.com/flex/mx"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:sf="http://www.spicefactory.org/parsley/flex"
+               width="500" height="300" 
+               close="closeMe()"
+               title="Store contact">
+               
+    <s:layout>
+        <s:VerticalLayout />
+    </s:layout>
+               
+    <fx:Script><![CDATA[
         import mx.managers.PopUpManager;
 
         import org.axonframework.examples.addressbook.messages.command.ChangeContactNameCommandMessage;
@@ -51,9 +59,11 @@
         private function closeMe():void {
             PopUpManager.removePopUp(this)
         }
-        ]]></mx:Script>
+        ]]></fx:Script>
 
+<fx:Declarations>
     <sf:Configure/>
+</fx:Declarations>
 
     <mx:Form defaultButton="{newContactButton}">
         <mx:FormItem label="Name">
@@ -68,4 +78,4 @@
         </mx:HBox>
     </mx:Form>
 
-</mx:TitleWindow>
+</s:TitleWindow>

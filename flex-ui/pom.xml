@@ -16,39 +16,285 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.axonframework.samples</groupId>
         <artifactId>axon-addressbook</artifactId>
         <version>2.0-SNAPSHOT</version>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
-
     <artifactId>axon-addressbook-flexui</artifactId>
     <packaging>pom</packaging>
 
     <name>Axon Address Book Sample - Flex ui</name>
+
+    <properties>
+        <flex.jetty.port>${jetty.port}</flex.jetty.port>
+        <swf-artifactId>axon-addressbook-swf</swf-artifactId>
+    </properties>
 
     <modules>
         <module>swf</module>
         <module>war</module>
     </modules>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>net.flexmojos.oss</groupId>
+                <artifactId>flexmojos-maven-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>net.flexmojos.oss</groupId>
+                    <artifactId>flexmojos-maven-plugin</artifactId>
+                    <version>${flexmojos.maven.version}</version>
+                    <configuration>
+                        <locales>
+                            <locale>en_US</locale>
+                        </locales>
+                        <debug>true</debug>
+                    </configuration>
+                    <dependencies>
+                        <!-- Required before org.apache.flex:compiler when embedded fonts and images
+                             dixit http://apache-flex-users.2333346.n4.nabble.com/Need-help-on-flexmojo-tp8336p8372.html
+                             In fact this handles a bug in maven which cause issues with flex resources
+                         -->
+                        <dependency>
+                            <groupId>net.flexmojos.oss</groupId>
+                            <artifactId>flexmojos-threadlocaltoolkit-wrapper</artifactId>
+                            <version>${flexmojos.maven.version}</version>
+                        </dependency>
+                        <!-- to force the version to be used -->
+                        <dependency>
+                            <groupId>org.apache.flex</groupId>
+                            <artifactId>compiler</artifactId>
+                            <version>${flex.version}</version>
+                            <type>pom</type>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+        
+            <dependency>
+                <groupId>com.adobe.blazeds</groupId>
+                <artifactId>blazeds-common</artifactId>
+                <version>${blazeds.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.adobe.blazeds</groupId>
+                <artifactId>blazeds-core</artifactId>
+                <version>${blazeds.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.adobe.blazeds</groupId>
+                <artifactId>blazeds-proxy</artifactId>
+                <version>${blazeds.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.adobe.blazeds</groupId>
+                <artifactId>blazeds-remoting</artifactId>
+                <version>${blazeds.version}</version>
+            </dependency>
+        
+
+            <dependency>
+                <groupId>org.apache.flex</groupId>
+                <artifactId>framework</artifactId>
+                <version>${flex.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.adobe.flash.framework</groupId>
+                <artifactId>playerglobal</artifactId>
+                <version>${flash.version}</version>
+                <type>swc</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.flexunit</groupId>
+                <artifactId>flexunit</artifactId>
+                <version>${flexunit.version}</version>
+                <type>swc</type>
+                <classifier>flex4</classifier>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework.themes</groupId>
+                <artifactId>spark</artifactId>
+                <version>${flex.version}</version>
+                <type>swc</type>
+                <classifier>en_US</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>advancedgrids</artifactId>
+                <version>${flex.version}</version>
+                <type>rb.swc</type>
+                <classifier>en_US</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>apache</artifactId>
+                <version>${flex.version}</version>
+                <type>rb.swc</type>
+                <classifier>en_US</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>charts</artifactId>
+                <version>${flex.version}</version>
+                <type>rb.swc</type>
+                <classifier>en_US</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>experimental</artifactId>
+                <version>${flex.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>experimental</artifactId>
+                <version>${flex.version}</version>
+                <type>rb.swc</type>
+                <classifier>en_US</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>flash-integration</artifactId>
+                <version>${flex.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>flash-integration</artifactId>
+                <version>${flex.version}</version>
+                <type>swc</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>flash-integration</artifactId>
+                <version>${flex.version}</version>
+                <type>rb.swc</type>
+                <classifier>en_US</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>framework</artifactId>
+                <version>${flex.version}</version>
+                <type>zip</type>
+                <classifier>configs</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>framework</artifactId>
+                <version>${flex.version}</version>
+                <type>rb.swc</type>
+                <classifier>en_US</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>mx</artifactId>
+                <version>${flex.version}</version>
+                <type>rb.swc</type>
+                <classifier>en_US</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>rpc</artifactId>
+                <version>${flex.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>rpc</artifactId>
+                <version>${flex.version}</version>
+                <type>rb.swc</type>
+                <classifier>en_US</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>spark</artifactId>
+                <version>${flex.version}</version>
+                <type>swc</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>spark</artifactId>
+                <version>${flex.version}</version>
+                <type>rb.swc</type>
+                <classifier>en_US</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.framework</groupId>
+                <artifactId>textLayout</artifactId>
+                <version>${flex.version}</version>
+                <type>rb.swc</type>
+                <classifier>en_US</classifier>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
     <repositories>
         <repository>
             <id>flexmojos</id>
-            <url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+            <url>http://repository.sonatype.org/content/groups/flexgroup/
+            </url>
         </repository>
         <repository>
             <id>spicefactory</id>
-            <url>http://svn.code.sf.net/adobe/cairngorm/code/cairngorm3/maven-repository/</url>
+            <url>http://svn.code.sf.net/adobe/cairngorm/code/cairngorm3/maven-repository/
+            </url>
+        </repository>
+        <repository>
+            <id>flexunit</id>
+            <url>http://oss.sonatype.org/content/repositories/releases/
+            </url>
+        </repository>
+        <repository>
+            <id>blazeds</id>
+            <url>http://repo.spring.io/plugins-release/
+            </url>
         </repository>
     </repositories>
+    
     <pluginRepositories>
         <pluginRepository>
             <id>flexmojos</id>
-            <url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+            <url>http://repository.sonatype.org/content/groups/flexgroup/
+            </url>
         </pluginRepository>
     </pluginRepositories>
+    
 </project>

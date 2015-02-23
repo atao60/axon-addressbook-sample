@@ -15,20 +15,22 @@
   ~ limitations under the License.
   -->
 
-<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml"
+<fx:Object xmlns:fx="http://ns.adobe.com/mxml/2009"
+           xmlns:mx="library://ns.adobe.com/flex/mx"
+           xmlns:s="library://ns.adobe.com/flex/spark"
            xmlns:sf="http://www.spicefactory.org/parsley"
            xmlns:commands="org.axonframework.examples.addressbook.controllers.*"
            xmlns:model="org.axonframework.examples.addressbook.model.*"
            xmlns:cons="org.axonframework.examples.addressbook.consumer.*"
         >
-
-    <mx:RemoteObject
+<fx:Declarations>
+    <s:RemoteObject
             id="remoteAddressService"
             destination="addressService"
             endpoint="messagebroker/amf"
             showBusyCursor="true"/>
 
-    <mx:RemoteObject
+    <s:RemoteObject
             id="remoteCommandReceiver"
             destination="commandReceiver"
             endpoint="messagebroker/amf"
@@ -51,8 +53,9 @@
 
     <model:AddressModel/>
     <model:ContactModel/>
+</fx:Declarations>
 
-    <mx:Script><![CDATA[
+    <fx:Script><![CDATA[
         import org.axonframework.examples.addressbook.controllers.*;
         import org.axonframework.examples.addressbook.messages.command.ChangeContactNameCommandMessage;
         import org.axonframework.examples.addressbook.messages.command.NewAddressCommandMessage;
@@ -65,5 +68,5 @@
         import org.axonframework.examples.addressbook.messages.notification.RemovedItemNotificationMessage;
         import org.axonframework.examples.addressbook.messages.notification.UpdatedContactAddressNotificationMessage;
         import org.axonframework.examples.addressbook.messages.notification.UpdatedContactNotificationMessage;
-        ]]></mx:Script>
-</mx:Object>
+        ]]></fx:Script>
+</fx:Object>

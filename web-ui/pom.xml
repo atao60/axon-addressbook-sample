@@ -16,7 +16,7 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -29,7 +29,7 @@
     <packaging>war</packaging>
 
     <name>Axon Address Book Sample - Web ui</name>
-    
+
     <properties>
         <web.jetty.port>${jetty.port}</web.jetty.port>
     </properties>
@@ -37,49 +37,73 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>${jetty.maven.groupId}</groupId>
-                <artifactId>${jetty.maven.artifactId}</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>set-system-properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
                     <httpConnector>
                         <port>${web.jetty.port}</port>
                     </httpConnector>
+                    <webAppConfig>
+                        <extraClasspath>../app/target/axon-addressbook-app-${project.version}.jar</extraClasspath>
+                        <!-- 
+                        <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
+                            <resourcesAsCSV>../app/src/main/resources
+                            </resourcesAsCSV>
+                        </baseResource>
+                         -->
+                    </webAppConfig>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
+    
+    <profiles>
+        <profile>
+            <id>not-jetty-run</id>
+            <activation>
+                <property>
+                    <name>!jetty-run</name>
+                </property>
+            </activation>
+            <dependencies>
+                <!-- Internal dependencies -->
+                <dependency>
+                    <groupId>org.axonframework.samples</groupId>
+                    <artifactId>axon-addressbook-app</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+    
     <dependencies>
         <!-- Internal dependencies -->
+<!--         
         <dependency>
             <groupId>org.axonframework.samples</groupId>
             <artifactId>axon-addressbook-app</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+ -->        
         <!-- Spring -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+<!--         
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
-
+ -->
+ 
         <!-- web -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -88,23 +112,22 @@
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>2.2</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.1.2</version>
         </dependency>
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
-            <version>1.1.2</version>
         </dependency>
         <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>sitemesh</artifactId>
-            <version>2.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
         </dependency>
         
         <!-- validation -->
@@ -116,5 +139,16 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
+        
+        <!-- log -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+
     </dependencies>
 </project>
